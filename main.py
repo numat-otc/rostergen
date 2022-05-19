@@ -32,9 +32,20 @@ endframe = Frame(root);                        endframe.pack(side=BOTTOM)
 #Label(frame1, text="ROSTER", font=(FONT, 48, "bold"), fg=FG, bg=BG).pack(side=TOP)
 Label(frame1, text="ROSTER", font=(FONT, 48, "bold"), fg=FG, bg=BG).grid(column=1)
 
-# Exit button
-Button(frame1, text="✖", width=4, font=(FONT, 16), fg=FG, bg="brown4", bd=0, command=quit).place(relx=1, rely=0,anchor=NE)
+# Fullscreen mode
+FSstate=False
+def ToggleFullscreen(FSstate):
+    root.attributes("-fullscreen", FSstate)
+    FSstate = not FSstate
 
+
+
+# Window buttons and hotkeys(useful if in fullscreen)
+Button(frame1, text="✖", width=4, font=(FONT, 14), fg=FG, bg="brown4", activeforeground=FG, activebackground="maroon", bd=0, command=quit).place(relx=1, rely=0,anchor=NE)
+Button(frame1, text="☐", width=4, font=(FONT, 14), fg=FG, bg="royalblue3", activeforeground=FG, activebackground="royalblue4", bd=0, command=ToggleFullscreen(FSstate=FSstate)).place(relx=1, rely=0, x=-46,anchor=NE)
+
+root.bind("<F11>", lambda: ToggleFullscreen(FSstate=FSstate))
+root.bind("<Escape>", quit)
 
 # Day titles (frame2 mid)
 DayFonting=(FONT, 20, "bold"); DaySpacing=0.135; DayY=0.5; DayFG=FG; DayBG=BG; GridCenter=0.52; DayAnchor=CENTER # Day titles customising variables
@@ -42,13 +53,6 @@ DayList=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
 for day in range(len(DayList)):
     globals()[DayList[day]] = Label(frame2, text=DayList[day], font=DayFonting, fg=DayFG, bg=DayBG)
     globals()[DayList[day]].place(relx=GridCenter+((day-3)*DaySpacing), rely=DayY, anchor=DayAnchor)
-#Mon = Label(frame2, text="Monday",    font=DayFonting, fg=DayFG, bg=DayBG).place(relx=GridCenter-3*DaySpacing, rely=DayY, anchor=DayAnchor)
-#Tue = Label(frame2, text="Tuesday",   font=DayFonting, fg=DayFG, bg=DayBG).place(relx=GridCenter-2*DaySpacing, rely=DayY, anchor=DayAnchor)
-#Wed = Label(frame2, text="Wednesday", font=DayFonting, fg=DayFG, bg=DayBG).place(relx=GridCenter-DaySpacing,   rely=DayY, anchor=DayAnchor)
-#Thu = Label(frame2, text="Thursday",  font=DayFonting, fg=DayFG, bg=DayBG).place(relx=GridCenter,              rely=DayY, anchor=DayAnchor)
-#Fri = Label(frame2, text="Friday",    font=DayFonting, fg=DayFG, bg=DayBG).place(relx=GridCenter+DaySpacing,   rely=DayY, anchor=DayAnchor)
-#Sat = Label(frame2, text="Saturday",  font=DayFonting, fg=DayFG, bg=DayBG).place(relx=GridCenter+2*DaySpacing, rely=DayY, anchor=DayAnchor)
-#Sun = Label(frame2, text="Sunday",    font=DayFonting, fg=DayFG, bg=DayBG).place(relx=GridCenter+3*DaySpacing, rely=DayY, anchor=DayAnchor)
 
 #Open = Entry(frame2, fg=FG, bg=BG).pack(side=RIGHT)
 
