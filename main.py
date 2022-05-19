@@ -26,14 +26,14 @@ root.configure(bg=BaseBG)  # background colour
 frame1   = Frame(root, bg=BG);                 frame1.pack(side=TOP,   fill=X)
 frame2   = Frame(root, height=50, bg=BG);      frame2.pack(side=TOP,   fill=X)
 frame3   = Frame(root, bg="grey20");           frame3.pack(side=RIGHT, fill=Y)
-endframe = Frame(root); endframe.pack(side=BOTTOM)
+endframe = Frame(root);                        endframe.pack(side=BOTTOM)
 
 # Title (frame1 top)
 #Label(frame1, text="ROSTER", font=(FONT, 48, "bold"), fg=FG, bg=BG).pack(side=TOP)
 Label(frame1, text="ROSTER", font=(FONT, 48, "bold"), fg=FG, bg=BG).grid(column=1)
 
 # Exit button
-Button(frame1, text="X", font=(FONT, 16, "bold"), fg=FG, bg="purple4", bd=0, command=quit).place(relx=1, rely=0,anchor=NE)
+Button(frame1, text="✖", width=4, font=(FONT, 16), fg=FG, bg="brown4", bd=0, command=quit).place(relx=1, rely=0,anchor=NE)
 
 
 # Day titles (frame2 mid)
