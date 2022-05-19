@@ -18,12 +18,12 @@ frame = Frame(root)
 canvas = Canvas()
 frame.pack()
 root.title("Roster")  # window title
-root.resizable(False, False)  # disable window resizing
+#root.resizable(False, False)  # disable window resizing
 root.geometry("1280x720")  # window size
 root.configure(bg=BaseBG)  # background colour
 
-frame1 = Frame(root);   frame1.pack(side=TOP)
-frame2 = Frame(root);   frame2.pack(side=TOP)
+frame1 = Frame(root,height=50,width=10000);   frame1.pack(side=TOP)
+frame2 = Frame(root,height=50,width=10000, bg=BG);   frame2.pack(side=TOP)
 endframe = Frame(root); endframe.pack(side=BOTTOM)
 
 
@@ -32,15 +32,14 @@ Label(frame1, text="ROSTER", font=(FONT, 48, "bold"), fg=FG, bg=BG).pack()
 #canvas.create_rectangle(0,50,1000,110,fill=FG)
 #canvas.pack()
 
-DaySpacing=0.135; DayFontSize=20; DayFG=FG; DayBG=BG; GridCenter=0.52; DayAnchor=CENTER
-banner = Label(root, text=" "*1000, font=(FONT, DayFontSize, "bold"), bg=DayBG).place(relx=0.5, rely=0.2, anchor=CENTER)
-Mon = Label(root, text="Monday",    font=(FONT, DayFontSize, "bold"), fg=DayFG, bg=DayBG).place(relx=GridCenter-3*DaySpacing, rely=0.2, anchor=DayAnchor)
-Tue = Label(root, text="Tuesday",   font=(FONT, DayFontSize, "bold"), fg=DayFG, bg=DayBG).place(relx=GridCenter-2*DaySpacing, rely=0.2, anchor=DayAnchor)
-Wed = Label(root, text="Wednesday", font=(FONT, DayFontSize, "bold"), fg=DayFG, bg=DayBG).place(relx=GridCenter-DaySpacing,   rely=0.2, anchor=DayAnchor)
-Thu = Label(root, text="Thursday",  font=(FONT, DayFontSize, "bold"), fg=DayFG, bg=DayBG).place(relx=GridCenter,              rely=0.2, anchor=DayAnchor)
-Fri = Label(root, text="Friday",    font=(FONT, DayFontSize, "bold"), fg=DayFG, bg=DayBG).place(relx=GridCenter+DaySpacing,   rely=0.2, anchor=DayAnchor)
-Sat = Label(root, text="Saturday",  font=(FONT, DayFontSize, "bold"), fg=DayFG, bg=DayBG).place(relx=GridCenter+2*DaySpacing, rely=0.2, anchor=DayAnchor)
-Sun = Label(root, text="Sunday",    font=(FONT, DayFontSize, "bold"), fg=DayFG, bg=DayBG).place(relx=GridCenter+3*DaySpacing, rely=0.2, anchor=DayAnchor)
+DaySpacing=0.135; DayY=0.5; DayFontSize=20; DayFG=FG; DayBG=BG; GridCenter=0.52; DayAnchor=CENTER
+Mon = Label(frame2, text="Monday",    font=(FONT, DayFontSize, "bold"), fg=DayFG, bg=DayBG).place(relx=GridCenter-3*DaySpacing, rely=DayY, anchor=DayAnchor)
+Tue = Label(frame2, text="Tuesday",   font=(FONT, DayFontSize, "bold"), fg=DayFG, bg=DayBG).place(relx=GridCenter-2*DaySpacing, rely=DayY, anchor=DayAnchor)
+Wed = Label(frame2, text="Wednesday", font=(FONT, DayFontSize, "bold"), fg=DayFG, bg=DayBG).place(relx=GridCenter-DaySpacing,   rely=DayY, anchor=DayAnchor)
+Thu = Label(frame2, text="Thursday",  font=(FONT, DayFontSize, "bold"), fg=DayFG, bg=DayBG).place(relx=GridCenter,              rely=DayY, anchor=DayAnchor)
+Fri = Label(frame2, text="Friday",    font=(FONT, DayFontSize, "bold"), fg=DayFG, bg=DayBG).place(relx=GridCenter+DaySpacing,   rely=DayY, anchor=DayAnchor)
+Sat = Label(frame2, text="Saturday",  font=(FONT, DayFontSize, "bold"), fg=DayFG, bg=DayBG).place(relx=GridCenter+2*DaySpacing, rely=DayY, anchor=DayAnchor)
+Sun = Label(frame2, text="Sunday",    font=(FONT, DayFontSize, "bold"), fg=DayFG, bg=DayBG).place(relx=GridCenter+3*DaySpacing, rely=DayY, anchor=DayAnchor)
 
 #Open = Entry(frame2, fg=FG, bg=BG).pack(side=RIGHT)
 
