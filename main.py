@@ -25,8 +25,8 @@ root.configure(bg=BaseBG)  # background colour
 # Frames
 frame1   = Frame(root, bg=BG);                 frame1.pack(side=TOP,   fill=X)
 frame2   = Frame(root, height=50, bg=BG);      frame2.pack(side=TOP,   fill=X)
-frame3   = Frame(root, bg="grey20");           frame3.pack(side=RIGHT, fill=Y)
-endframe = Frame(root);                        endframe.pack(side=BOTTOM)
+frame3   = Frame(root, width=100, height=50, bg="purple"); frame3.pack(side=TOP, fill=BOTH)
+#endframe = Frame(root);                        endframe.pack(side=BOTTOM)
 
 # Title (frame1 top)
 #Label(frame1, text="ROSTER", font=(FONT, 48, "bold"), fg=FG, bg=BG).pack(side=TOP)
@@ -34,17 +34,17 @@ Label(frame1, text="ROSTER", font=(FONT, 48, "bold"), fg=FG, bg=BG).grid(column=
 
 # Fullscreen mode
 FSstate=False
-def ToggleFullscreen(FSstate):
-    root.attributes("-fullscreen", FSstate)
-    FSstate = not FSstate
+def ToggleFullscreen(state):
+    root.attributes("-fullscreen", state)
+    state = not state
 
 
 
 # Window buttons and hotkeys(useful if in fullscreen)
 Button(frame1, text="✖", width=4, font=(FONT, 14), fg=FG, bg="brown4", activeforeground=FG, activebackground="maroon", bd=0, command=quit).place(relx=1, rely=0,anchor=NE)
-Button(frame1, text="☐", width=4, font=(FONT, 14), fg=FG, bg="royalblue3", activeforeground=FG, activebackground="royalblue4", bd=0, command=ToggleFullscreen(FSstate=FSstate)).place(relx=1, rely=0, x=-46,anchor=NE)
+Button(frame1, text="☐", width=4, font=(FONT, 14), fg=FG, bg="royalblue3", activeforeground=FG, activebackground="royalblue4", bd=0, command=ToggleFullscreen(state=FSstate)).place(relx=1, rely=0, x=-46,anchor=NE)
 
-root.bind("<F11>", lambda: ToggleFullscreen(FSstate=FSstate))
+#root.bind("<F11>", lambda self: ToggleFullscreen(self, FSstate=FSstate))
 root.bind("<Escape>", quit)
 
 # Day titles (frame2 mid)
