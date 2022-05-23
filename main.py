@@ -23,9 +23,11 @@ root.geometry("1280x720")  # window size
 root.configure(bg=BaseBG)  # background colour
 
 # Frames
+global frame3
 frame1   = Frame(root, bg=BG);                 frame1.pack(side=TOP,   fill=X)
 frame2   = Frame(root, height=50, bg=BG);      frame2.pack(side=TOP,   fill=X)
 frame3   = Frame(root, width=100, height=50, bg="purple"); frame3.pack(side=TOP, fill=BOTH)
+frame3Scroll = Scrollbar(frame3).pack(side="right")
 #endframe = Frame(root);                        endframe.pack(side=BOTTOM)
 
 # Title (frame1 top)
@@ -57,7 +59,11 @@ for day in range(len(DayList)):
 #Open = Entry(frame2, fg=FG, bg=BG).pack(side=RIGHT)
 
 # Peoples (frame3 body mid)
+def frame3add50():
+    count =+ 50
+    frame3.config(root, width=100, height=count, bg="purple")
 
+Button(frame3,text="+50px",command=frame3add50).place(relx=0.5,rely=0.5)
 
 
 
