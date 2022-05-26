@@ -1,6 +1,7 @@
 # Libraries
 from tkinter import *
 from tkinter import Canvas, Frame
+import time
 import random  # random lib
 import os  # windows cmd commands lib
 ##-\‽/\TREY/\‽/-##
@@ -32,9 +33,9 @@ def ToggleFullscreen(FSstate):
 
 # Frames
 global frame3
-frame1   = Frame(root, height=80, bg=BG);                   frame1.pack(side=TOP,   fill=X)
-frame2   = Frame(root, height=50, bg=BG);                   frame2.pack(side=TOP,   fill=X)
-frame3   = Frame(root, height=50, width=100, bg="purple");  frame3.pack(side=TOP, fill=BOTH)
+frame1   = Frame(root, height=80, bg=BG);                   frame1.pack(side=TOP, fill=X)
+frame2   = Frame(root, height=50, bg=BG);                   frame2.pack(side=TOP, fill=X)
+frame3   = Frame(root, bg="tomato4");                          frame3.pack(side=TOP, fill=BOTH, expand=True)
 frame3Scroll = Scrollbar(frame3).pack(side="right")
 #endframe = Frame(root);                        endframe.pack(side=BOTTOM)
 
@@ -43,7 +44,7 @@ Label(frame1, text="ROSTER", font=("Tahoma", 32, "bold"), fg=FG, bg=BG).place(re
 
 
 # Window buttons and hotkeys(useful if in fullscreen)
-Button(frame1, text="✖", width=4, font=(FONT, 14), fg=FG, bg="brown4", activeforeground=FG, activebackground="maroon", bd=0, command=quit).place(relx=1, rely=0,anchor=NE)
+Button(frame1, text="✖", width=4, font=(FONT, 14), fg=FG, bg="brown4",  activeforeground=FG, activebackground="maroon",  bd=0, command=quit).place(relx=1, rely=0,anchor=NE)
 Button(frame1, text="☐", width=4, font=(FONT, 14), fg=FG, bg="purple3", activeforeground=FG, activebackground="purple4", bd=0, command=ToggleFullscreen(FSstate=FSstate)).place(relx=1, rely=0, x=-46,anchor=NE)
 
 #root.bind("<F11>", lambda self: ToggleFullscreen(self, FSstate=FSstate))
@@ -59,11 +60,38 @@ for day in range(len(DayList)):
 #Open = Entry(frame2, fg=FG, bg=BG).pack(side=RIGHT)
 
 # Peoples (frame3 body mid)
-def frame3add50():
-    count =+ 50
-    frame3.config(height=count)
 
-Button(frame3,text="+50px",command=frame3add50).place(relx=0.5,rely=0.5)
+#pack widgets
+def packframe3():
+    frame3contents = []
+    #while True:
+        #try:
+    for i in range(len(frame3contents)):
+        frame3contents[i].destroy()
+        #except:
+            #pass
+
+    for i in range(8):
+        globals()["frame3",i+1] = Frame(frame3, bg="wheat3");    globals()["frame3",i+1].pack(fill="x",pady=12)
+        frame3contents.append(str("frame3",(i+1)))
+
+
+        globals()["person",i+1]       = Label ((globals()["frame3",i+1]), text="abcd",); globals()["person",i+1]
+        globals()["deleteperson",i+1] = Button((globals()["frame3",i+1]), text="X",); globals()["deleteperson",i+1]
+
+        frame3contents.append(str("person",i+1))
+        frame3contents.append(str("deleteperson",i+1))
+
+
+
+    addperson = Button((globals()["frame3",i+1]), text="+", width=3, font=(FONT, 14), fg=FG, bg="green3",  activeforeground=FG, activebackground="darkgreen", bd=0,).grid(padx=20)
+    frame3contents.append("addperson")
+
+
+    print(frame3contents)
+
+
+packframe3()
 
 
 
@@ -72,8 +100,7 @@ Button(frame3,text="+50px",command=frame3add50).place(relx=0.5,rely=0.5)
 
 
 
-
-#root.after(2000, quit)
+root.after(3000, packframe3())
 root.mainloop()  # end of tk
 
 
