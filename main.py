@@ -51,11 +51,14 @@ Button(frame1, text="☐", width=4, font=(FONT, 14), fg=FG, bg="purple3", active
 root.bind("<Escape>", quit)
 
 # Day titles (frame2 mid)
-DayFonting=(FONT, 20, "bold"); DaySpacing=0.135; DayY=0.5; DayFG=FG; DayBG=BG; GridCenter=0.52; DayAnchor=CENTER # Day titles customising variables
+DayFonting=(FONT, 24, "bold"); DaySpacing=0.12; LineOffset=-0.05; DayY=0.5; DayFG=FG; DayBG=BG; GridCenter=0.56; DayAnchor=CENTER # Day titles customising variables
 DayList=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"] # list of days (can be removed or rearranged such as "Sunday" day1)
 for day in range(len(DayList)):
     globals()[DayList[day]] = Label(frame2, text=DayList[day], font=DayFonting, fg=DayFG, bg=DayBG)
     globals()[DayList[day]].place(relx=GridCenter+((day-3)*DaySpacing), rely=DayY, anchor=DayAnchor)
+
+for line in range(7):
+    border = Label(bg=BG).place(height=10000,width=3,relx=GridCenter+(((line-3)*DaySpacing)+LineOffset),rely=0.5,anchor=CENTER)
 
 #Open = Entry(frame2, fg=FG, bg=BG).pack(side=RIGHT)
 
@@ -67,28 +70,28 @@ def packframe3():
     #while True:
         #try:
     for i in range(len(frame3contents)):
-        frame3contents[i].destroy()
+        globals()[str(frame3contents[i])].destroy()
         #except:
             #pass
 
-    for i in range(8):
-        globals()["frame3",i+1] = Frame(frame3, bg="wheat3");    globals()["frame3",i+1].pack(fill="x",pady=12)
-        frame3contents.append(str("frame3",(i+1)))
+    for i in range(3):
+        globals()["frame3.",i+1] = Frame(frame3, bg="wheat3");    globals()["frame3.",i+1].pack(fill="x",pady=12)
+        frame3contents.append("frame3"+str(i+1))
 
 
-        globals()["person",i+1]       = Label ((globals()["frame3",i+1]), text="abcd",); globals()["person",i+1]
-        globals()["deleteperson",i+1] = Button((globals()["frame3",i+1]), text="X",); globals()["deleteperson",i+1]
+        globals()["person",i+1]       = Label ((globals()["frame3.",i+1]), text="abcd",); globals()["person",i+1].grid(column=2,row=0)
+        globals()["deleteperson",i+1] = Button((globals()["frame3.",i+1]), text="X",); globals()["deleteperson",i+1].grid(column=1,row=0)
 
-        frame3contents.append(str("person",i+1))
-        frame3contents.append(str("deleteperson",i+1))
+        frame3contents.append("person"+str(i+1))
+        frame3contents.append("deleteperson"+str(i+1))
+    globals()["frame3.",i+1] = Frame(frame3, bg="wheat3");    globals()["frame3.",i+1].pack(fill="x",pady=12)
+    frame3contents.append("frame3"+str(i+1))
 
-
-
-    addperson = Button((globals()["frame3",i+1]), text="+", width=3, font=(FONT, 14), fg=FG, bg="green3",  activeforeground=FG, activebackground="darkgreen", bd=0,).grid(padx=20)
+    addperson = Button((globals()["frame3.",i+1]), text="+", width=3, font=(FONT, 14), fg=FG, bg="green3",  activeforeground=FG, activebackground="darkgreen", bd=0,).grid(padx=20)
     frame3contents.append("addperson")
 
-
     print(frame3contents)
+
 
 
 packframe3()
@@ -98,9 +101,7 @@ packframe3()
 
 
 
-
-
-root.after(3000, packframe3())
+#root.after(2000, packframe3())
 root.mainloop()  # end of tk
 
 
