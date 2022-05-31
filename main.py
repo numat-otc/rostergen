@@ -1,27 +1,29 @@
 # Libraries
 from tkinter import *
-from tkinter import Canvas, Frame
+from tkinter import messagebox, Frame
+import ctypes
 import time
 import random  # random lib
 import os  # windows cmd commands lib
 ##-\‽/\TREY/\‽/-##
 
 
-### UI Theme Colours
+# UI theme colours & other
 BaseBG = ("grey16",)
 BG = ("grey30",)
 FG = ("grey80",)
 FONT = ("Calibri")
 Theme=0
+personlist = ['trey','JAY']
 
 # Tkinter setup
 root = Tk()
-frame = Frame(root)
-canvas = Canvas()
-frame.pack()
+frame = Frame(root); frame.pack()
 root.title("Roster")  # window title
 #root.resizable(False, False)  # disable window resizing
-root.geometry("1280x720")  # window size
+screensize = ctypes.windll.user32.GetSystemMetrics(0), ctypes.windll.user32.GetSystemMetrics(1) # read screen size using ctypes lib
+windowsize = (1280,720); adjustcenter = (round(screensize[0]/2-windowsize[0]/2),round(screensize[1]/2-windowsize[1]/2)) # set window size and center
+root.geometry(f"{windowsize[0]}x{windowsize[1]}+{adjustcenter[0]}+{adjustcenter[1]}")  # window size and centered
 root.configure(bg=BaseBG)  # background colour
 
 # Fullscreen mode
@@ -57,15 +59,31 @@ for day in range(len(DayList)):
 for line in range(len(DayList)):
     border = Label(bg="black").place(height=9000,width=3,relx=GridCenter+(((line-3)*DaySpacing)+LineOffset),y=80,anchor=N)
 
-Open = Entry(frame2, fg=FG, bg=BG).pack(side=RIGHT)
+#Open = Entry(frame2, fg=FG, bg=BG).pack(side=RIGHT)
 
 # Peoples (frame3 body mid)
 def addp():
-    addppopup = Tk()
-    root.title("Add Someone")  # window title
-    Title = Label(addppopup, text="Add Someone:", font=("Tahoma", 16, "bold"), fg=FG, bg=BG); Title.pack()
+    def addconfirm():
+        adding = addentry.get()
+        if adding.lower() in personlist:
+            messagebox.showinfo("Error", f"'{adding.upper()}' already exists!")
+            return
+        addppopup.destroy()
+        return
+
+    addppopup = Toplevel(root)
+    addppopup.title("Add Someone")  # window title
+    addppopup.configure(bg=BaseBG)  # background colour
+    addppopup.resizable(False, False)  # disable window resizing
+    Label(addppopup, text="ADD SOMEONE NEW", font=("Tahoma", 16, "bold"), fg=FG, bg=BaseBG).grid(pady=10) # title
+    addentry = Entry(addppopup, font=(FONT, 16, "bold"), width=24, fg=FG, bg=BaseBG); addentry.grid(pady=10) # entry box
+    Button(addppopup, text="CANCEL", font=(FONT, 14), fg=FG, bg="brown4",  activeforeground=FG, activebackground="maroon",  bd=0, command=addppopup.destroy).grid(row=3,sticky=W) # cancel
+    Button(addppopup, text="CONFIRM", font=(FONT, 14), fg=FG, bg="green3", activeforeground=FG, activebackground="darkgreen", bd=0, command=addconfirm).grid(row=3,sticky=E) # confirm
+
 
     addppopup.mainloop()
+    addppopup.destroy()
+
 #pack widgets
 def packframe3():
     frame3contents = []
