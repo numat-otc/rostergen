@@ -65,7 +65,7 @@ for line in range(len(DayList)):
 def addp():
     def addconfirm():
         adding = addentry.get()
-        if adding.lower() in personlist:
+        if adding.upper() in personlist:
             messagebox.showinfo("Error", f"'{adding.upper()}' already exists!")
             return
         addppopup.destroy()
@@ -90,6 +90,7 @@ def packframe3():
     #while True:
         #try:
     for i in range(len(frame3contents)):
+        print("destroying-",globals()[str(frame3contents[i])])
         globals()[str(frame3contents[i])].destroy()
         #except:
             #pass
@@ -97,7 +98,6 @@ def packframe3():
     for i in range(3):
         globals()["frame3.",i+1] = Frame(frame3, bg="wheat3");    globals()["frame3.",i+1].pack(fill="x",pady=12)
         frame3contents.append("frame3"+str(i+1))
-
 
         globals()["person",i+1]       = Label ((globals()["frame3.",i+1]), text="abcd",); globals()["person",i+1].grid(column=2,row=0)
         globals()["deleteperson",i+1] = Button((globals()["frame3.",i+1]),text="✖", width=4, font=(FONT, 14), fg=FG, bg="brown4", activeforeground=FG, activebackground="maroon",  bd=0,); globals()["deleteperson",i+1].grid(column=1,row=0)
