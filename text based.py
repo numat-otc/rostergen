@@ -37,29 +37,41 @@ def add(): # add someone new and their hours
             continue
         else:break
     everyone.append(inputname)
-    globals()[f"list{everyone[-1]}"] = []
+    globals()[f"personhours{len(everyone)}"] = []
     while True: # new name hours
         os.system("cls")
         print("Type 'Cancel' and ENTER to go back")
         print("Type a number corresponding to a day and ENTER")
         print("Type nothing and ENTER to finish")
         print("═" * 24)
-        print(f"{inputname}:")
+        print(f"{everyone[-1]}:")
         for i in range(len(dayslist)):
             if len(dayslist[i])<9: # align days up
                 dayalign = str(" "*(9-len(dayslist[i])))
             else: dayalign = ""
             print(f"{i+1} - {dayalign}{dayslist[i]}:  ")
             # and hours
-
         print("═" * 24)
         inputday = input("|>  ") # input
         if inputday.lower() == "cancel": # if canceling go back
             everyone.pop(-1) # delete name from list
             return
-        if inputday == "":
+        elif inputday == "":
             pass ### save vars, go back
-        print(globals()[f"list{inputname}"])
+        elif inputday in range(len(dayslist)):
+            while True:
+                os.system("cls")
+                print("Type 'Cancel' and ENTER to go back")
+                print("═" * 24)
+                print(f"{dayslist[i]} Hours For: {everyone[-1]}")
+                if "Mon" in :
+
+                print(f"{} - {}")
+                print("═" * 24)
+                print()
+        else: pass
+
+        print(globals()[f"list{everyone[-1]}"])
         input()
 
 
