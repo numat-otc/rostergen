@@ -35,15 +35,14 @@ def add(): # add someone new and their hours
     while True: # new name
         os.system("cls")
         PrintRoster(numbered=False,times=False)
-        print("Options: \n1) type a new name \n2) cancel \n(Type and ENTER)")
+        print("Options: (Type and ENTER) \n1) a new name \n2) cancel")
         inputname = input("|>  ") # input
-        if inputname.lower() == "cancel": # if canceling go back
+        if inputname.lower() in ("cancel","2"): # cancel
             return
         elif inputname in everyone: # if person already exists (exact characters)
             print("Person already exists")
             wait(t=1)
-            continue
-        else:break
+        else: break
     everyone.append(inputname)
 
 
@@ -52,9 +51,9 @@ def remove(): # remove a person and their hours
     os.system("cls")
     while True:
         PrintRoster(numbered=True,times=False)
-        print("Options: \n1) type a name \n2) cancel \n(Type and Enter)")
+        print("Options: (Type and ENTER) \n1) type a name \n2) cancel")
         inputoption = input("|>  ") # input
-        if inputoption.lower()=="cancel":
+        if inputoption.lower() in ("cancel","2"): # cancel
             return
         elif inputoption in everyone:
             everyone.remove(inputoption)
@@ -73,14 +72,14 @@ def edit(): # edit a person and their hours
 while True: # main loop
     os.system("cls") # clear command prompt screen
     PrintRoster(numbered=False,times=True) # print roster
-    print("Options: \n1) add \n2) edit \n3) remove \n(Type and ENTER)") # options
+    print("Options: (Type and ENTER) \n1) add \n2) edit \n3) remove") # options
     inputoption = input("|>  ") # input
 
     if inputoption.lower() in ["1","+","add","new"]: # if add option selected
         add()
 
     if inputoption.lower() in ["2",".","edit","change"]: # if edit option selected
-        if everyone<1:
+        if len(everyone)<1:
             print("You must first add a person.")
             wait(t=1)
         edit()
