@@ -23,21 +23,16 @@ def PrintRoster(numbered,times): # display names and hours
     print("═" * 24)
     for i in range(len(everyone)):
         if numbered==True: # displaying numbers corresponding to persons
-            print(i+1, everyone[i])
+            print(f"{i+1}] {everyone[i]}")
         else:
             print(everyone[i])
-        if times == True: # displaying times (TBD)
-            print("times tbd")
     print("═" * 24)
+    if times == True: # displaying times (TBD)
+        print("times tbd")
 
-
-def add(): # add someone new and their hours
+def add(inputname): # add someone new and their hours
     while True: # new name
-        os.system("cls")
-        PrintRoster(numbered=False,times=False)
-        print("Options: (Type and ENTER) \n1) a new name \n2) cancel")
-        inputname = input("|>  ") # input
-        if inputname.lower() in ("cancel","2"): # cancel
+        if inputname.lower() in ("cancel"): # cancel
             return
         elif inputname in everyone: # if person already exists (exact characters)
             print("Person already exists")
@@ -46,14 +41,26 @@ def add(): # add someone new and their hours
     everyone.append(inputname)
 
 
-
 def remove(): # remove a person and their hours
     os.system("cls")
     while True:
+        print("REMOVING")
         PrintRoster(numbered=True,times=False)
         print("Options: (Type and ENTER) \n1) type a name \n2) cancel")
         inputoption = input("|>  ") # input
-        if inputoption.lower() in ("cancel","2"): # cancel
+        inputoption = int(inputoption)
+        while True:
+            try:
+                inputoption = int(inputoption)
+                if inputoption in range(len(everyone)+1):
+                    everyone.pop(inputoption-1)
+                    return
+                else:
+                    print("number out of range")
+                    wait(t=1)
+                    break
+            except: break
+        if inputoption.lower() in ("cancel"): # cancel
             return
         elif inputoption in everyone:
             everyone.remove(inputoption)
@@ -64,6 +71,7 @@ def remove(): # remove a person and their hours
 
 def edit(): # edit a person and their hours
     os.system("cls")
+    print("EDITING")
     PrintRoster(numbered=True,times=True)
 
     #next task
@@ -71,21 +79,25 @@ def edit(): # edit a person and their hours
 
 while True: # main loop
     os.system("cls") # clear command prompt screen
+    print("ROSTER")
     PrintRoster(numbered=False,times=True) # print roster
-    print("Options: (Type and ENTER) \n1) add \n2) edit \n3) remove") # options
+    print("Options: (Type and ENTER) \n1) a new person \n2) edit \n3) remove") # options
     inputoption = input("|>  ") # input
 
-    if inputoption.lower() in ["1","+","add","new"]: # if add option selected
-        add()
-
-    if inputoption.lower() in ["2",".","edit","change"]: # if edit option selected
+    if inputoption.lower() in ["2","edit","change"]: # if edit option selected
         if len(everyone)<1:
             print("You must first add a person.")
             wait(t=1)
         edit()
 
     if inputoption.lower() in ["3","-","remove","delete"]: # if remove option selected
-        remove()
+        if len(everyone) < 1:
+            print("There is nobody to remove")
+        else:
+            remove()
+
+    else:
+        add(inputname=inputoption)
 
 
 
