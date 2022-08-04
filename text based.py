@@ -70,9 +70,16 @@ def remove(): # remove a person and their hours
             wait(1.5)
 
 def edit(): # edit a person and their hours
-    os.system("cls")
-    print("EDITING")
-    PrintRoster(numbered=True,times=True)
+    while True:
+        os.system("cls")
+        PrintRoster(numbered=True,times=True)
+        print("Options: (Type and ENTER) \n1) type a name \n2) cancel")
+        inputoption = input("|>  ") # input
+        if inputoption in everyone:
+
+
+
+
 
     #next task
 
