@@ -100,11 +100,6 @@ def edit(): # edit a person and their hours
 
 
 
-
-
-    #next task
-
-
 while True: # main loop
     os.system("cls") # clear command prompt screen
     print("ROSTER")
@@ -127,7 +122,3 @@ while True: # main loop
 
     else:
         add(inputname=inputoption)
-
-
-
-
