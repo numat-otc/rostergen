@@ -9,97 +9,116 @@ dayslist = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunda
 daysshortlist = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
 everyone = []
 
+## AutoLoad:
+# ___
+# ___
 
 def wait(t): # time lib wait function
     time.sleep(t)
 
+def AutoSave():
+    pass
 
-def PrintRoster(): # display names and hours
+def PrintRoster(numbered,times): # display names and hours
     print("═" * 24)
-    print("Roster:")
     for i in range(len(everyone)):
-        print(everyone[i])
+        if numbered==True: # displaying numbers corresponding to persons
+            print(f"{i+1}] {everyone[i]}")
+        else:
+            print(everyone[i])
     print("═" * 24)
+    if times == True: # displaying times (TBD)
+        print("times tbd")
 
-
-def add(): # add someone new and their hours
+def add(inputname): # add someone new and their hours
     while True: # new name
-        os.system("cls")
-        PrintRoster()
-        print("Type 'Cancel' and ENTER to go back")
-        print("Type a new name and ENTER")
-        inputname = input("|>  ") # input
-        if inputname.lower() == "cancel": # if canceling go back
+        if inputname.lower() in ("cancel"): # cancel
             return
         elif inputname in everyone: # if person already exists (exact characters)
             print("Person already exists")
             wait(t=1)
-            continue
-        else:break
+        else: break
     everyone.append(inputname)
-    globals()[f"personhours{len(everyone)}"] = []
-    while True: # new name hours
-        os.system("cls")
-        print("Type 'Cancel' and ENTER to go back")
-        print("Type a number corresponding to a day and ENTER")
-        print("Type nothing and ENTER to finish")
-        print("═" * 24)
-        print(f"{everyone[-1]}:")
-        for i in range(len(dayslist)):
-            if len(dayslist[i])<9: # align days up
-                dayalign = str(" "*(9-len(dayslist[i])))
-            else: dayalign = ""
-            print(f"{i+1} - {dayalign}{dayslist[i]}:  ")
-            # and hours
-        print("═" * 24)
-        inputday = input("|>  ") # input
-        if inputday.lower() == "cancel": # if canceling go back
-            everyone.pop(-1) # delete name from list
-            return
-        elif inputday == "":
-            pass ### save vars, go back
-        elif inputday in range(len(dayslist)):
-            while True:
-                os.system("cls")
-                print("Type 'Cancel' and ENTER to go back")
-                print("═" * 24)
-                print(f"{dayslist[i]} Hours For: {everyone[-1]}")
-                if "Mon" in :
-
-                print(f"{} - {}")
-                print("═" * 24)
-                print()
-        else: pass
-
-        print(globals()[f"list{everyone[-1]}"])
-        input()
-
+    globals()[str(inputname)] = []
 
 
 def remove(): # remove a person and their hours
     os.system("cls")
-    PrintRoster()
-    pass #tbd
+    while True:
+        print("REMOVING")
+        PrintRoster(numbered=True,times=False)
+        print("Options: (Type and ENTER) \n1) type a name \n2) cancel")
+        inputoption = input("|>  ") # input
+        inputoption = int(inputoption)
+        while True:
+            try:
+                inputoption = int(inputoption)
+                if inputoption in range(len(everyone)+1):
+                    everyone.pop(inputoption-1)
+                    return
+                else:
+                    print("number out of range")
+                    wait(t=1)
+                    break
+            except: break
+        if inputoption.lower() in ("cancel"): # cancel
+            return
+        elif inputoption in everyone:
+            everyone.remove(inputoption)
+            return
+        else:
+            print("Invalid response. Tip: names are case-sensitive")
+            wait(1.5)
 
 def edit(): # edit a person and their hours
-    os.system("cls")
-    PrintRoster()
-    pass #tbd
+    while True:
+        while True:
+            os.system("cls")
+            PrintRoster(numbered=True,times=True)
+            print("Options: (Type and ENTER) \n1) type a name \n2) cancel \n(CASE SENSITIVE)")
+            inputoption = input("|>  ") # input
+
+            try:
+                inputoption = int(inputoption)
+                if int(inputoption) in len(everyone):
+                    PersonListLocation = inputoption-1
+                    PersonSelected = everyone[PersonListLocation]
+                break
+            except: pass
+            if inputoption == "cancel":
+                return
+            elif inputoption in everyone:
+                PersonListLocation = everyone.index(inputoption)
+                PersonSelected = everyone[PersonListLocation]
+                break
+            else:
+                print("Person not found")
+                wait(t=1)
+        while True:
+            print(PersonSelected)
+            print(globals()[str(intputname)])
+
 
 
 while True: # main loop
     os.system("cls") # clear command prompt screen
-    PrintRoster() # print roster
-    print("Type 1-'Add' or 2-'Remove' or 3-'Edit' and ENTER") # options
+    print("ROSTER")
+    PrintRoster(numbered=False,times=True) # print roster
+    print("Options: (Type and ENTER) \n1) a new person \n2) edit \n3) remove") # options
     inputoption = input("|>  ") # input
 
-    if inputoption.lower() in ["1","+","add","new"]: # if add option selected
-        add()
+    if inputoption.lower() in list["2","edit","change"]: # if edit option selected
+        if len(everyone)<1:
+            print("You must first add a person.")
+            wait(t=1)
+        else:
+            edit()
 
-    if inputoption.lower() in ["2","-","remove","delete"]: # if remove option selected
-        remove()
+    if inputoption.lower() in list["3","-","remove","delete"]: # if remove option selected
+        if len(everyone) < 1:
+            print("There is nobody to remove")
+        else:
+            remove()
 
-    if inputoption.lower() in ["3",".","edit","change"]: # if edit option selected
-        edit()
-
-
+    else:
+        add(inputname=inputoption)
