@@ -47,7 +47,7 @@ def remove(): # remove a person and their hours
     while True:
         print("REMOVING")
         PrintRoster(numbered=True,times=False)
-        print("Options: (Type and ENTER) \n1) type a name \n2) cancel")
+        print("Options: (Type and ENTER) \n- type a name \n- cancel")
         inputoption = input("|>  ") # input
         inputoption = int(inputoption)
         while True:
@@ -68,20 +68,21 @@ def remove(): # remove a person and their hours
             return
         else:
             print("Invalid response. Tip: names are case-sensitive")
-            wait(1.5)
+            wait(t=1.5)
 
 def edit(): # edit a person and their hours
     while True:
         while True:
             os.system("cls")
+            print("EDIT")
             PrintRoster(numbered=True,times=True)
-            print("Options: (Type and ENTER) \n1) type a name \n2) cancel \n(CASE SENSITIVE)")
+            print("Options: (Type and ENTER) \n- type a name \n- cancel \n(CASE SENSITIVE)")
             inputoption = input("|>  ") # input
 
             try:
-                inputoption = int(inputoption)
-                if int(inputoption) in len(everyone):
-                    PersonListLocation = inputoption-1
+                inputoption = int(inputoption)-1
+                if inputoption in len(everyone):
+                    PersonListLocation = inputoption
                     PersonSelected = everyone[PersonListLocation]
                 break
             except: pass
@@ -96,7 +97,7 @@ def edit(): # edit a person and their hours
                 wait(t=1)
         while True:
             print(PersonSelected)
-            print(globals()[str(intputname)])
+            print(globals()[str(inputoption)])
 
 
 
@@ -104,19 +105,20 @@ while True: # main loop
     os.system("cls") # clear command prompt screen
     print("ROSTER")
     PrintRoster(numbered=False,times=True) # print roster
-    print("Options: (Type and ENTER) \n1) a new person \n2) edit \n3) remove") # options
+    print("Options: (Type and ENTER) \n- a new person \n- edit \n- remove") # options
     inputoption = input("|>  ") # input
 
-    if inputoption.lower() in list["2","edit","change"]: # if edit option selected
+    if inputoption.lower() in ["2","+","edit","change"]: # if edit option selected
         if len(everyone)<1:
             print("You must first add a person.")
             wait(t=1)
         else:
             edit()
 
-    if inputoption.lower() in list["3","-","remove","delete"]: # if remove option selected
+    if inputoption.lower() in ["3","-","remove","delete"]: # if remove option selected
         if len(everyone) < 1:
             print("There is nobody to remove")
+            wait(t=1)
         else:
             remove()
 
