@@ -7,7 +7,7 @@ global daysshort
 global everyone
 days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
 daysshort = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
-everyone = ["trey"]
+everyone = ["trey", "tttt"] # temporarily preset
 
 ## AutoLoad:
 # ___
@@ -72,9 +72,41 @@ def remove(): # remove a person and their hours
             wait(t=1.5)
 
 def edit(): # edit a person and their hours
-    while True:
+    def selectday():
+        while True: # select day and hours
+            print(PersonSelected) # debug printouts
+            print(globals()[str(inputoption)])
+            dayslower = []
+            for i in range(len(days)):
+                dayslower.append(days[i].lower())
+
+            for i in len(days):
+                print(f"{i} - {days[i]}")
+            print("Options: (Type and ENTER) \n - select a day \n - back \n - cancel \n")
+            inputoption = input("|>  ")  # input
+
+            try:
+                if int(inputoption)-1 in len(days):
+                    DaySelected = days[i]
+                    break
+            except:
+                if inputoption.lower == "cancel":
+                    return
+                elif inputoption.lower == "back":
+                    break
+
+                elif inputoption.lower() in dayslower:
+                    DaySelected = days[days.index(inputoption)]
+                    break
 
 
+                else:
+                    print("invalid input")
+                    wait(t=1)
+                    continue
+
+    def selectperson():
+        global PersonSelected
         while True: # select person
             os.system("cls")
             print("EDIT")
@@ -87,49 +119,31 @@ def edit(): # edit a person and their hours
                     print("innn")
                     PersonListLocation = inputoption
                     PersonSelected = everyone[PersonListLocation]
-                break
-            except: pass
-            if inputoption == "cancel":
-                return
-            elif inputoption in everyone:
-                PersonListLocation = everyone.index(inputoption)
-                PersonSelected = everyone[PersonListLocation]
-                break
-            else:
-                print("Person not found")
-                wait(t=1)
-
-        ### need to re evaluate setup of algorithm to edit hours & sleep
-        while True: # select day and hours
-            print(PersonSelected) # debug printouts
-            print(globals()[str(inputoption)])
-            dayslower = []
-            for i in range(len(days)):
-                dayslower.append(days[i].lower())
-
-            for i in len(days):
-                print(f"{i} - {days[i]}")
-            print("Options: (Type and ENTER) \n - select a day \n - cancel")
-            inputoption = input("|>  ")  # input
-
-            try:
-                if int(inputoption)-1 in len(days):
-                    DaySelected = days[i]
                     break
             except:
-                if inputoption.lower() in dayslower:
-                    DaySelected = days[days.index(inputoption)]
+                if inputoption == "cancel":
+                    return
+                elif inputoption in everyone:
+                    PersonListLocation = everyone.index(inputoption)
+                    PersonSelected = everyone[PersonListLocation]
                     break
-                elif inputoption.lower == "cancel":
-                    break
-
                 else:
-                    print("invalid input")
+                    print("Person not found")
                     wait(t=1)
-                    continue
+        selectday()
+
+    def selecthours():
+        pass
+
+    while True:
+        selectperson()
 
 
-        inputhours = DaySelected[0]
+        ### need to re evaluate setup of algorithm to edit hours & sleep
+
+
+
+
 
 
 
@@ -137,11 +151,13 @@ while True: # main loop
     os.system("cls") # clear command prompt screen
     print("ROSTER")
     PrintRoster(numbered=False,times=True) # print roster
-    print("Options: (Type and ENTER) \n - a new person \n - edit \n - remove") # options
+    print("Options: (Type and ENTER) \n - [PERSON] | to add someone new \n - edit [PERSON] | to edit someone\n - remove [PERSON] | to remove someone") # options
     inputoption = input("|>  ") # input
 
     # options
-    if inputoption.lower() in ["2","+","edit","change"]: # if edit option selected
+    if inputoption.lower()[0:3] in "edit": # if edit option selected
+        selectedperson = inputoption.lower()[5:-1]
+        print(selectedperson)
         if len(everyone)<1:
             print("There is nobody to edit")
             wait(t=1)
@@ -149,7 +165,7 @@ while True: # main loop
         else:
             edit()
             continue
-    if inputoption.lower() in ["3","-","remove","delete"]: # if remove option selected
+    if inputoption.lower()[0:5] in "remove": # if remove option selected
         if len(everyone) < 1:
             print("There is nobody to remove")
             wait(t=1)
@@ -164,6 +180,9 @@ while True: # main loop
         continue
     if inputoption.lower() == "delfirst":
         everyone.pop(0)
+        continue
+    if inputoption.lower() == "clear":
+        everyone = []
         continue
 
     add(inputname=inputoption)
