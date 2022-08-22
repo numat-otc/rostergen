@@ -31,9 +31,10 @@ def PrintRoster(numbered,times): # display names and hours
             print(f"{i+1}] {everyone[i]}")
         else:
             print(everyone[i])
-    print("═" * 24)
     if times == True: # displaying times (TBD)
         print("____times tbd")
+    print("═" * 24)
+
 
 
 def add(inputname): # add someone new and their hours list
@@ -55,10 +56,16 @@ def edit(PersonSelected): # edit a person and their hours
     while True: # select day and hours
         print(PersonSelected) # debug printouts
         print(globals()[str(PersonSelected)]) # persons hour lists
-        dayslower = []
+
+        dayslower = [] # convert days to lowercase
         for i in range(len(days)):
             dayslower.append(days[i].lower())
 
+        daysshortlower = [] # convert days to lowercase
+        for i in range(len(days)):
+            daysshortlower.append(daysshort[i].lower())
+
+        os.system("cls") # clear command prompt screen
         print(f"ADD TIMES FOR {PersonSelected}")
         for i in range(len(days)):
             print(f"{i+1} - {days[i]}")
@@ -68,27 +75,42 @@ def edit(PersonSelected): # edit a person and their hours
         if inputoption.lower == "cancel":
             return
         try:
-            if int(inputoption)-1 in len(days):
+            int(inputoption)
+            if int(inputoption) in range(len(days)):
                 DaySelected = days[int(inputoption)-1]
-                break
         except:
             if inputoption.lower() in dayslower:
-                DaySelected = days[days.index(inputoption)]
-                break
+                DaySelected = days[dayslower.index(inputoption)]
+            elif inputoption.lower() in daysshortlower:
+                DaySelected = days[daysshortlower.index(inputoption)]
             else:
-                print("invalid input")
+                print("Invalid input")
                 wait(t=1)
                 continue
         print(DaySelected)
 
-        print("Enter a starting time")
-        inputstart = input("|>  ")  # input
-        print("Enter an ending time")
-        inputend = input("|>  ")  # input
+
+
+        try:
+            print("Enter the starting time \nin 24h format")
+            inputstart = int(input("|>  "))  # input
+
+            print("Enter the ending time \nin 24h format")
+            inputend = int(input("|>  "))  # input
+
+            if inputoption.lower == "cancel":
+                continue
+
+        except:
+            print("Invalid input")
+            wait(t=1)
+            continue
 
 
 
-        ### need to re evaluate setup of algorithm to edit hours & sleep
+
+
+
 
 
 
