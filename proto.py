@@ -66,40 +66,54 @@ def edit(PersonSelected): # edit a person and their hours
             daysshortlower.append(daysshort[i].lower())
 
         os.system("cls") # clear command prompt screen
-        print(f"ADD TIMES FOR {PersonSelected}")
+        print(f"ROSTER FOR {PersonSelected}")
         for i in range(len(days)):
             print(f"{i+1} - {days[i]}")
-        print("Options: (type and ENTER) \n - [DAY] | to select a day \n - cancel | to go back ")
+        print("Options: (type and ENTER) \n - [DAY] | to select a day \n - [1-7] | to select a corresponding day \n - cancel | to go back ")
         inputoption = input("|>  ")  # input
 
-        if inputoption.lower == "cancel":
+        if inputoption.lower() == "cancel":
             return
         try:
-            int(inputoption)
             if int(inputoption) in range(len(days)):
                 DaySelected = days[int(inputoption)-1]
         except:
-            if inputoption.lower() in dayslower:
-                DaySelected = days[dayslower.index(inputoption)]
-            elif inputoption.lower() in daysshortlower:
-                DaySelected = days[daysshortlower.index(inputoption)]
-            else:
-                print("Invalid input")
-                wait(t=1)
-                continue
+            print("not int")
+        if inputoption.lower() in dayslower:
+            DaySelected = days[dayslower.index(inputoption)]
+        elif inputoption.lower() in daysshortlower:
+            DaySelected = days[daysshortlower.index(inputoption)]
+        else:
+            print("Invalid input")
+            wait(t=1)
+            continue
         print(DaySelected)
 
 
 
         try:
-            print("Enter the starting time \nin 24h format")
-            inputstart = int(input("|>  "))  # input
+            print("Enter the STARTING time \nin 24h format (e.g: 0800 or 0945)")
+            inputstart = (input("|>  "))  # input
 
-            print("Enter the ending time \nin 24h format")
-            inputend = int(input("|>  "))  # input
-
-            if inputoption.lower == "cancel":
+            if inputoption.lower() == "cancel":
                 continue
+
+            print("Enter the ENDING time \nin 24h format (e.g: 0800 or 0945)")
+            inputend = (input("|>  "))  # input
+
+            startint = int(inputstart)
+            endint = int(inputend)
+
+            if startint not in range(0,2359):
+                print("error")
+
+
+            if inputoption.lower() == "cancel":
+                continue
+
+            globals()[str(PersonSelected)].append(f"{DaySelected[0:3]}_{inputstart}_{inputend}")
+            globals()[str(PersonSelected)].sort()
+            print(f"{PersonSelected}:{globals()[str(PersonSelected)]}")
 
         except:
             print("Invalid input")
