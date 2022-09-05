@@ -68,7 +68,8 @@ def edit(PersonSelected): # edit a person and their hours
         os.system("cls") # clear command prompt screen
         print(f"ROSTER FOR {PersonSelected}")
         for i in range(len(days)):
-            print(f"{i+1} - {days[i]}")
+            for i in range():
+                print(f"{i+1} - {days[i]}")
         print("Options: (type and ENTER) \n - [DAY] | to select a day \n - [1-7] | to select a corresponding day \n - cancel | to go back ")
         inputoption = input("|>  ")  # input
 
@@ -90,29 +91,36 @@ def edit(PersonSelected): # edit a person and their hours
         print(DaySelected)
 
 
-
         try:
-            print("Enter the STARTING time \nin 24h format (e.g: 0800 or 0945)")
-            inputstart = (input("|>  "))  # input
+            print("Enter the STARTING time \nin 24h format (e.g: 0800 or 1145)")
+            inputstart = int(input("|>  ")) # input
 
             if inputoption.lower() == "cancel":
                 continue
 
-            print("Enter the ENDING time \nin 24h format (e.g: 0800 or 0945)")
-            inputend = (input("|>  "))  # input
+            print("Enter the ENDING time \nin 24h format (e.g: 0800 or 1145)")
+            inputend = int(input("|>  ")) # input
 
             startint = int(inputstart)
             endint = int(inputend)
 
-            if startint not in range(0,2359):
-                print("error")
-
-
             if inputoption.lower() == "cancel":
                 continue
 
-            globals()[str(PersonSelected)].append(f"{DaySelected[0:3]}_{inputstart}_{inputend}")
-            globals()[str(PersonSelected)].sort()
+            if startint not in range(0,2359):
+                print("Start time out of range")
+            if endint not in range(0,2359):
+                print("End time out of range")
+
+            if startint < 1000:
+                startint = str(f"0{startint}")
+            if endint < 1000:
+                endint = str(f"0{endint}")
+
+            appendtimes = f"{DaySelected[0:3]}_{inputstart}_{inputend}"
+
+            globals()[str(PersonSelected)].append(appendtimes)
+            globals()[str(PersonSelected)].sort() # organise hours in ascending order
             print(f"{PersonSelected}:{globals()[str(PersonSelected)]}")
 
         except:
