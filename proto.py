@@ -57,6 +57,8 @@ def edit(PersonSelected): # edit a person and their hours
         print(PersonSelected) # debug printouts
         print(globals()[str(PersonSelected)]) # persons hour lists
 
+
+
         dayslower = [] # convert days to lowercase
         for i in range(len(days)):
             dayslower.append(days[i].lower())
@@ -65,10 +67,16 @@ def edit(PersonSelected): # edit a person and their hours
         for i in range(len(days)):
             daysshortlower.append(daysshort[i].lower())
 
+        for i in range(len(daysshortlower)):
+            globals()[f"times-{daysshortlower[i]}"] = []
+
         os.system("cls") # clear command prompt screen
         print(f"ROSTER FOR {PersonSelected}")
         for i in range(len(days)):
-            for i in range():
+            for a in range(len(globals()[str(PersonSelected)])):
+                for b in range(len(days)):
+                    var =
+
                 print(f"{i+1} - {days[i]}")
         print("Options: (type and ENTER) \n - [DAY] | to select a day \n - [1-7] | to select a corresponding day \n - cancel | to go back ")
         inputoption = input("|>  ")  # input
