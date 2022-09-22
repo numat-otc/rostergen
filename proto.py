@@ -5,12 +5,12 @@ import time
 global days
 global daysshort
 global everyone
-days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
-daysshort = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
+days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+daysshort = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 everyone = []
 
 
-def wait(t): # time lib wait function
+def wait(t):  # time lib wait function
     time.sleep(t)
 
 
@@ -20,24 +20,24 @@ def AutoLoad():
     globals()["trey"] = []
     globals()["tttt"] = []
 
+
 def AutoSave():
     pass
 
 
-def PrintRoster(numbered,times): # display names and hours
+def PrintRoster(numbered, times):  # display names and hours
     print("═" * 24)
     for i in range(len(everyone)):
-        if numbered==True: # displaying numbers corresponding to persons
+        if numbered is True:  # displaying numbers corresponding to persons
             print(f"{i+1}] {everyone[i]}")
         else:
             print(everyone[i])
-    if times == True: # displaying times (TBD)
+    if times is True:  # displaying times (TBD)
         print("____times tbd")
     print("═" * 24)
 
 
-
-def add(inputname): # add someone new and their hours list
+def add(inputname):  # add someone new and their hours list
     if inputname in everyone:
         print("That person already exists")
         wait(t=1)
@@ -48,29 +48,28 @@ def add(inputname): # add someone new and their hours list
         return
 
 
-def remove(PersonSelected): # remove a person and their hours
+def remove(PersonSelected):  # remove a person and their hours
     everyone.pop(everyone.index(PersonSelected))
     globals()[str(PersonSelected)] = []
 
-def edit(PersonSelected): # edit a person and their hours
-    while True: # select day and hours
-        print(PersonSelected) # debug printouts
-        print(globals()[str(PersonSelected)]) # persons hour lists
 
+def edit(PersonSelected):  # edit a person and their hours
+    while True:  # select day and hours
+        print(PersonSelected)  # debug printouts
+        print(globals()[str(PersonSelected)])  # persons hour lists
 
-
-        dayslower = [] # convert days to lowercase
+        dayslower = []  # convert days to lowercase
         for i in range(len(days)):
             dayslower.append(days[i].lower())
 
-        daysshortlower = [] # convert days to lowercase
+        daysshortlower = []  # convert days to lowercase
         for i in range(len(days)):
             daysshortlower.append(daysshort[i].lower())
 
         for i in range(len(daysshortlower)):
             globals()[f"times-{daysshortlower[i]}"] = []
 
-        os.system("cls") # clear command prompt screen
+        os.system("cls")  # clear command prompt screen
         print(f"ROSTER FOR {PersonSelected}")
         for i in range(len(days)):
             for a in range(len(globals()[str(PersonSelected)])):
@@ -98,16 +97,15 @@ def edit(PersonSelected): # edit a person and their hours
             continue
         print(DaySelected)
 
-
         try:
             print("Enter the STARTING time \nin 24h format (e.g: 0800 or 1145)")
-            inputstart = int(input("|>  ")) # input
+            inputstart = int(input("|>  "))  # input
 
             if inputoption.lower() == "cancel":
                 continue
 
             print("Enter the ENDING time \nin 24h format (e.g: 0800 or 1145)")
-            inputend = int(input("|>  ")) # input
+            inputend = int(input("|>  "))  # input
 
             startint = int(inputstart)
             endint = int(inputend)
@@ -115,9 +113,9 @@ def edit(PersonSelected): # edit a person and their hours
             if inputoption.lower() == "cancel":
                 continue
 
-            if startint not in range(0,2359):
+            if startint not in range(0, 2359):
                 print("Start time out of range")
-            if endint not in range(0,2359):
+            if endint not in range(0, 2359):
                 print("End time out of range")
 
             if startint < 1000:
@@ -128,7 +126,7 @@ def edit(PersonSelected): # edit a person and their hours
             appendtimes = f"{DaySelected[0:3]}_{inputstart}_{inputend}"
 
             globals()[str(PersonSelected)].append(appendtimes)
-            globals()[str(PersonSelected)].sort() # organise hours in ascending order
+            globals()[str(PersonSelected)].sort()  # organise hours in ascending order
             print(f"{PersonSelected}:{globals()[str(PersonSelected)]}")
 
         except:
@@ -137,28 +135,20 @@ def edit(PersonSelected): # edit a person and their hours
             continue
 
 
-
-
-
-
-
-
-
-
 AutoLoad()
-while True: # main loop
-    os.system("cls") # clear command prompt screen
+while True:  # main loop
+    os.system("cls")  # clear command prompt screen
     print("ROSTER")
-    PrintRoster(numbered=False,times=True) # print roster
-    print("Options: (type and ENTER) \n - add [PERSON] | to add someone new \n - remove [PERSON] | to remove someone \n - edit [PERSON] | to edit someone \n (CASE SENSITIVE)") # options
-    inputoption = input("|>  ") # input
+    PrintRoster(numbered=False, times=True)  # print roster
+    print("Options: (type and ENTER) \n - add [PERSON] | to add someone new \n - remove [PERSON] | to remove someone \n - edit [PERSON] | to edit someone \n (CASE SENSITIVE)")  # options
+    inputoption = input("|>  ")  # input
 
     # options
-    if inputoption.lower()[0:3] in "add": # if add option selected
-        print(inputoption.lower()[0:3],"\n",inputoption[4:])
+    if inputoption.lower()[0:3] in "add":  # if add option selected
+        print(inputoption.lower()[0:3], "\n", inputoption[4:])
         add(inputname=inputoption[4:])
 
-    if inputoption.lower()[0:6] in "remove": # if remove option selected
+    if inputoption.lower()[0:6] in "remove":  # if remove option selected
         print(inputoption.lower()[0:6], inputoption[7:])
         if len(everyone) < 1:
             print("There is nobody to remove")
@@ -172,9 +162,9 @@ while True: # main loop
             wait(t=1)
             continue
 
-    if inputoption.lower()[0:4] in "edit": # if edit option selected
-        print(inputoption.lower()[0:4],"\n",inputoption[5:])
-        if len(everyone)<1:
+    if inputoption.lower()[0:4] in "edit":  # if edit option selected
+        print(inputoption.lower()[0:4], "\n", inputoption[5:])
+        if len(everyone) < 1:
             print("There is nobody to edit")
             wait(t=1)
             continue
@@ -185,8 +175,6 @@ while True: # main loop
             print("Invalid input")
             wait(t=1)
             continue
-
-
 
     # debug options
     if inputoption.lower() == "dellast":
@@ -200,3 +188,4 @@ while True: # main loop
         continue
 
 
+# End of code
