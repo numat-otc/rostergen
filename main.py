@@ -5,7 +5,6 @@ import ctypes
 import time
 import random  # random lib
 import os  # windows cmd commands lib
-##-\‽/\TREY/\‽/-##
 
 
 # UI theme colours & other
@@ -13,7 +12,7 @@ BaseBG = ("grey16",)
 BG = ("grey30",)
 FG = ("grey80",)
 FONT = ("Calibri")
-Theme=0
+Theme = 0
 personlist = ['trey', 'JAY']
 
 # Tkinter setup
@@ -21,15 +20,17 @@ root = Tk()
 frame = Frame(root)
 frame.pack()
 root.title("Roster")  # window title
-#root.resizable(False, False)  # disable window resizing
-screensize = ctypes.windll.user32.GetSystemMetrics(0), ctypes.windll.user32.GetSystemMetrics(1) # read screen size using ctypes lib
+# root.resizable(False, False)  # disable window resizing
+screensize = ctypes.windll.user32.GetSystemMetrics(0), ctypes.windll.user32.GetSystemMetrics(1)  # read screen size using ctypes lib
 windowsize = (1280, 720)
-adjustcenter = (round(screensize[0]/2-windowsize[0]/2), round(screensize[1]/2-windowsize[1]/2)) # set window size and center
+adjustcenter = (round(screensize[0]/2-windowsize[0]/2), round(screensize[1]/2-windowsize[1]/2))  # set window size and center
 root.geometry(f"{windowsize[0]}x{windowsize[1]}+{adjustcenter[0]}+{adjustcenter[1]}")  # window size and centered
 root.configure(bg=BaseBG)  # background colour
 
 # Fullscreen mode
-FSstate=False
+FSstate = False
+
+
 def ToggleFullscreen(FSstate):
     root.attributes("-fullscreen", FSstate)
     FSstate = not FSstate
@@ -37,12 +38,12 @@ def ToggleFullscreen(FSstate):
 
 # Frames
 global frame3
-frame1   = Frame(root, height=80, bg=BG)
+frame1 = Frame(root, height=80, bg=BG)
 frame1.pack(side=TOP, fill=X)
-frame2   = Frame(root, height=50, bg=BG)
+frame2 = Frame(root, height=50, bg=BG)
 frame2.pack(side=TOP, fill=X)
-frame3   = Frame(root, bg="tomato4")
-frame3.pack(side=TOP, fill=BOTH, expand=True) #change colour l8r
+frame3 = Frame(root, bg="tomato4")
+frame3.pack(side=TOP, fill=BOTH, expand=True)  # change colours l8r
 frame3Scroll = Scrollbar(frame3).pack(side="right")
 # endframe = Frame(root)
 # endframe.pack(side=BOTTOM)
@@ -52,12 +53,12 @@ Label(frame1, text="ROSTER", font=("Tahoma", 32, "bold"), fg=FG, bg=BG).place(re
 # Window buttons and hotkeys(useful if in fullscreen)
 Button(frame1, text="✖", width=4, font=(FONT, 14), fg=FG, bg="brown4",  activeforeground=FG, activebackground="maroon",  bd=0, command=quit).place(relx=1, rely=0, anchor=NE)
 Button(frame1, text="☐", width=4, font=(FONT, 14), fg=FG, bg="purple3", activeforeground=FG, activebackground="purple4", bd=0, command=ToggleFullscreen(FSstate=FSstate)).place(relx=1, rely=0, x=-46, anchor=NE)
-#root.bind("<F11>", lambda self: ToggleFullscreen(self, FSstate=FSstate))
+# root.bind("<F11>", lambda self: ToggleFullscreen(self, FSstate=FSstate))
 root.bind("<Escape>", quit)
 
 
 # Day titles (frame2 mid)
-# Day titles customising variables
+# Day titles customising variables (gives me ability to easily change the style of this particular area
 DayFonting = (FONT, 22, "bold")
 DaySpacing = 0.12
 LineOffset = -0.06
@@ -66,14 +67,15 @@ DayFG = FG
 DayBG = BG
 GridCenter = 0.56
 DayAnchor = CENTER
-DayList =["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] # list of days (can be removed or rearranged such as "Sunday" day1)
+DayList = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]  # list of days (can be removed or rearranged such as "Sunday" day1)
 for day in range(len(DayList)):
     globals()[DayList[day]] = Label(frame2, text=DayList[day], font=DayFonting, fg=DayFG, bg=DayBG)
     globals()[DayList[day]].place(relx=GridCenter+((day-3)*DaySpacing), rely=DayY, anchor=DayAnchor)
 for line in range(len(DayList)):
     border = Label(bg="black").place(height=9000, width=3, relx=GridCenter+(((line-3)*DaySpacing)+LineOffset), y=80, anchor=N)
 
-#Open = Entry(frame2, fg=FG, bg=BG).pack(side=RIGHT)
+# Open = Entry(frame2, fg=FG, bg=BG).pack(side=RIGHT)
+
 
 # Peoples (frame3 body mid)
 def addp():
@@ -98,6 +100,7 @@ def addp():
     addppopup.mainloop()
     addppopup.destroy()
 # pack widgets
+
 
 def packframe3():
     frame3contents = []
