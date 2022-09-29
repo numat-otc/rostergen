@@ -20,12 +20,14 @@ global Persons
 days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 daysshort = []
 for i in range(len(days)): daysshort.append(days[i][:3])
-Persons = ["Trey", "tttt"]
+Persons = ["Trey", "tttt", "ttt"]
 
 
 # FOR DEBUG (splitting strings)
+print("DEBUG")
 globals()["TreyTimes"] = ["Mon-1800-2200", "Thu-0600-1200", "Sat-0000-0400", "Sat-0800-1200", "Sat-0200-0600", "Sat-2200-0200"]
 globals()["ttttTimes"] = []
+globals()["tttTimes"] = []
 for i in range(len(globals()["TreyTimes"])):
     print(globals()["TreyTimes"][i][:3], globals()["TreyTimes"][i][4:])
 print("\n\n")
@@ -42,6 +44,13 @@ windowsize = (1280, 720)
 adjustcenter = (round(screensize[0]/2-windowsize[0]/2), round(screensize[1]/2-windowsize[1]/2))  # set window size and center
 root.geometry(f"{windowsize[0]}x{windowsize[1]}+{adjustcenter[0]}+{adjustcenter[1]}")  # window size and centered
 root.configure(bg=BaseBG)  # background colour
+
+
+def StartupLoad():
+    pass
+
+def AutoSave():
+    pass
 
 
 FSstate = False
@@ -145,7 +154,7 @@ def EditPerson():
 
 def AddPerson(): # add a new person
     print("\nadd new box started")
-    def AddConfirm():
+    def AddConfirm(self):
         adding = addentry.get() # get input from entry
         if adding in Persons:
             messagebox.showinfo("Error", f"'{adding}' already exists!")
@@ -159,6 +168,9 @@ def AddPerson(): # add a new person
             globals()[f"{adding}Times"] = []
             print(f"Added: {adding}")
             Redraw(c=-1)
+
+    def dele(self):
+        AddPopupRoot.destroy()
 
 
     AddPopupRoot = Toplevel(root)
@@ -174,6 +186,9 @@ def AddPerson(): # add a new person
     ButtonFrame.pack(fill=BOTH)
     Button(ButtonFrame, text="CANCEL", font=(FONT, 16, "bold"), fg=FG, bg="red4", activeforeground=FG, activebackground="maroon", bd=0, command=AddPopupRoot.destroy).place(relx=0, x=10, y=6, anchor=NW)  # cancel
     Button(ButtonFrame, text="CONFIRM", font=(FONT, 16, "bold"), fg=FG, bg="forest green", activeforeground=FG, activebackground="dark green", bd=0, command=AddConfirm).place(relx=1, x=-10, y=6, anchor=NE)  # confirm
+    # AddPopupRoot.bind("<Enter>", lambda: AddConfirm)  # enter shortcut keybind
+    # AddPopupRoot.bind("<Escape>", lambda: dele)  # escape shortcut keybind
+
     AddPopupRoot.mainloop()
 
 
@@ -208,19 +223,19 @@ Editor.place(relheight=1, x=30, rely=0.5, anchor=W)
 
 # day titles
 global DaySpacing, GridCenter
-DayFonting = (FONT, 20, "bold")
-DaySpacing = 0.12
-LineOffset = -0.06
+DayFonting = (FONT, 16, "bold")
+DaySpacing = 0.10
+LineOffset = -0.05
 DayY = 0.5
 DayFG = FG
 DayBG = BG
-GridCenter = 0.56
+GridCenter = 0.6
 DayAnchor = CENTER
 for day in range(len(days)):
     globals()[days[day]] = Label(DayFrame, text=days[day], font=DayFonting, fg=DayFG, bg=DayBG)
     globals()[days[day]].place(relx=GridCenter + ((day - 3) * DaySpacing), rely=DayY, anchor=DayAnchor)
-for line in range(len(days)):
-    border = Label(bg="black").place(height=windowsize[0], width=3, relx=GridCenter+(((line-3)*DaySpacing)+LineOffset), y=80, anchor=N)
+for line in range(len(days)+1):
+    border = Label(bg=MG).place(height=windowsize[0], width=3, relx=GridCenter+(((line-3)*DaySpacing)+LineOffset), y=80, anchor=N)
 
 
 
